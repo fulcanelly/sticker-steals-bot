@@ -22,14 +22,16 @@ async def get_exact_message(where, id: int):
 @client.on(events.NewMessage(chats=["me"]))
 async def stickerStealer(event: telethon.tl.custom.message.Message):
 
-    if not event.text.startswith(".addsticker"):
+    start, packname = str(event.text).split(' ')
+
+    if not start == ".addsticker":
         return 
     
     msg = await get_exact_message('me', event.reply_to.reply_to_msg_id)
 
     for attr in msg.document.attributes:
         if type(attr) == telethon.types.DocumentAttributeSticker:
-            await add_sticker_to_pack("packname", await msg.download_media("stickers"), attr.alt)
+            await add_sticker_to_pack(packname, await msg.download_media("stickers"), attr.alt)
 
     
 
