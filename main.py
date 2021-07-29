@@ -14,6 +14,11 @@ async def add_sticker_to_pack(pack_name: str, sticker: str, emoji: str):
     await client.send_file("Stickers", sticker)
 
 
+async def get_exact_message(where, id: int):
+    async for msg in client.iter_messages('me', ids=[id]):
+        return msg
+
+
 @client.on(events.NewMessage(chats=["me"]))
 async def stickerStealer(event: telethon.tl.custom.message.Message):
 
