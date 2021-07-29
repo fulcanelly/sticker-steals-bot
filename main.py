@@ -21,11 +21,19 @@ async def get_exact_message(where, id: int):
 
 @client.on(events.NewMessage(chats=["me"]))
 async def stickerStealer(event: telethon.tl.custom.message.Message):
-
-    start, packname = str(event.text).split(' ')
-
-    if not start == ".addsticker":
+    packname = None
+    
+    try:
+        _, packname = str(event.text).split(' ')
+    except ValueError:
+        pass
+    
+    if not event.text.startswith(".addsticker"):
         return 
+
+    if not packname:
+        return await client.send_message('me', "Specify pack name!")
+
     
     msg = await get_exact_message('me', event.reply_to.reply_to_msg_id)
 
