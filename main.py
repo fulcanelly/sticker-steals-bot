@@ -10,8 +10,8 @@ client.session.save()
 async def add_sticker_to_pack(pack_name: str, sticker: str, emoji: str):
     await client.send_message("Stickers", "/addsticker")
     await client.send_message("Stickers", pack_name)
-    await client.send_message("Stickers", emoji)
     await client.send_file("Stickers", sticker)
+    await client.send_message("Stickers", emoji)
 
 
 async def get_exact_message(where, id: int):
