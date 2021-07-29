@@ -24,14 +24,12 @@ async def stickerStealer(event: telethon.tl.custom.message.Message):
 
     if not event.text.startswith(".addsticker"):
         return 
-        
-    async for msg in client.iter_messages('me', ids=[event.reply_to.reply_to_msg_id]):
-        for attr in msg.document.attributes:
-            if type(attr) == telethon.types.DocumentAttributeSticker:
-                await add_sticker_to_pack("packname", await msg.download_media("stickers"), attr.alt)
-    return 
+    
+    msg = await get_exact_message('me', event.reply_to.reply_to_msg_id)
 
-
+    for attr in msg.document.attributes:
+        if type(attr) == telethon.types.DocumentAttributeSticker:
+            await add_sticker_to_pack("packname", await msg.download_media("stickers"), attr.alt)
 
     
 
