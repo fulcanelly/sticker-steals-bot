@@ -15,7 +15,7 @@ async def add_sticker_to_pack(pack_name: str, sticker: str, emoji: str):
 
 
 async def get_exact_message(where, id: int):
-    async for msg in client.iter_messages('me', ids=[id]):
+    async for msg in client.iter_messages(where, ids=[id]):
         return msg
 
 
